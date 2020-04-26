@@ -3,3 +3,14 @@
     name: nginx
     state: present
   when: ansible_facts['os_family'] == 'Ubuntu'
+- name: Create a directory if it does not exist
+  file:
+    path: /etc/nginx/sites-enabled 
+    state: directory
+- name: generate Nginx site config
+  template:
+    src: site.conf.j2
+    dest: /etc/nginx/sites-enabled/site.conf
+    owner: root
+    group: root
+    mode: 0744
